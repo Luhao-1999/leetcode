@@ -1,0 +1,41 @@
+import numpy as np
+
+i = int(input("请输入方程的个数"))#相当于矩阵的行数
+j = int(input("请输入未知数的个数"))#相当于列数少1
+nums = np.zeros(shape=(i,j+1))
+for row in range(0,i):
+    str = "请依次输入第{}个方程的系数，以及等号后面那个值，以空格为分割".format(row+1)
+    a = input(str)
+    num = a.split(" ")
+    for col in range(0,len(num)):
+        nums[row][col] = int(num[col])
+print("原矩阵：")
+print(nums)
+for row in range(0,i-1):
+    pivotrow = row
+    for a in range(row+1,j):
+        if abs(nums[a][row]) > abs(nums[pivotrow][row]):
+            pivotrow = a
+    for k in range(row,j+1):#交换nums[row][k]和nums[pivotrow][k]的值
+        temp = nums[row][k]
+        nums[row][k] = nums[pivotrow][k]
+        nums[pivotrow][k] = temp
+    for a in range(row+1,i):
+        temp = nums[a][row]/nums[row][row]
+        for k in range(row,j+1):
+            nums[a][k] = nums[a][k] - nums[row][k]*temp
+print("线性变化后的矩阵：")
+print(nums)
+#解答案
+answers = []
+for m in range(0,j):
+    answers.append(0)
+answers[j-1] = nums[i-1][-1]/ nums[i-1][-2]
+for k in range(i-2,-1,-1):
+    s = 0
+    for c in range(k+1,j):
+        s += answers[c]*nums[k][c]
+    answers[k]=(nums[k][-1]-s)/nums[k][k]
+# print(answers)
+for i in range(0,len(answers)):
+    print("x{}的解为：{}".format(i+1,answers[i]))
