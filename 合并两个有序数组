@@ -1,0 +1,19 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        nums1_copy = nums1[:m]
+        nums1[:]=[]
+        a ,b = 0,0
+        while a<m and b<n:
+            if nums1_copy[a] < nums2[b]:
+                nums1.append(nums1_copy[a])
+                a += 1
+            else:
+                nums1.append(nums2[b])
+                b += 1
+        if a<m:
+            nums1[a+b:] = nums1_copy[a:]
+        if b < n:
+            nums1[a+b:] = nums2[b:]
