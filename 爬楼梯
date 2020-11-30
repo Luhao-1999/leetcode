@@ -1,0 +1,14 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        f1 = 2 #下面1层
+        f2 = 1 #下面2层
+        fn = 0
+        if n == 2:
+            return 2
+        if n ==1 :
+            return 1
+        for f in range(3,n+1):
+           fn = f1 + f2
+           f2 = f1
+           f1 = fn
+        return fn
