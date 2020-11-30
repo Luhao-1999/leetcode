@@ -1,1 +1,59 @@
+import numpy as np
+
+road = []
+#存数据
+m = int(input("请输入节点数"))
+a = np.zeros(shape=(m,m))
+for row in range(0,m):
+    for col in range(0,m):
+        a[row][col] = 100000
+# print(a)
+k = int(input("请输入段数"))
+dir = {}
+for i in range(1,k+1):
+    s = input("请输入第{}段有哪几个点，以空格为界".format(i))
+    b = s.split(" ")
+    dir[i] = b
+# print(dir)
+n = int(input("请输入边的数量"))
+for side in range(1,n+1):
+    str = "第{}条边请依次输入边的起点和终点以及权值，以空格为分界".format(side)
+    s = input(str)
+    b = s.split(" ")
+    start = int(b[0])-1
+    end = int(b[1])-1
+    weight = int(b[2])
+    a[start][end] = weight
+#算法
+cost=[]
+for i in range(0,m):
+    cost.append(0)
+    cost[-1] = 0
+# print(cost)
+for duan in range(4,0,-1):
+    min = 10000
+    for points in dir[duan]:
+        point = int(points)
+        for j in range(0,m):
+            x = a[point-1][j]+cost[j]
+            if(x<min):
+                print(x,end=' ')
+                cost[point-1]=x
+                min = x
+                p = point
+            if(x>min and cost[point-1]==0):
+                cost[point - 1] = x
+            if (x > min and cost[point - 1] != 0 and x<cost[point - 1]):
+                cost[point - 1] = x
+    road.append(p)
+print("最短路径的和为：{}".format(min))
+road.reverse()
+road.append(12)
+print("最短路径为：{}".format(road))
+t = 0
+for i in range(0,len(road)-1):
+    b = road[i]
+    c = road[i+1]
+    t += a[b-1][c-1]
+print("最短路径的和为：{}".format(t))
 
