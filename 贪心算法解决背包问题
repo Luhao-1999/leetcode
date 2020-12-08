@@ -1,0 +1,48 @@
+num = int(input("请输入物品的件数"))
+bag = int(input("请输入背包的最大承重量"))
+weights = []
+values = []
+res = []
+for i in range(0,num):
+    str = "请输入第{}件物品的重量".format(i+1)
+    weight = int(input(str))
+    weights.append(weight)
+for i in range(0,num):
+    str = "请输入第{}件物品的价值".format(i+1)
+    value = int(input(str))
+    values.append(value)
+a = []
+for i in range(0,num):
+    a.append(values[i]/weights[i])
+value = 0
+while bag > 0:
+    ind = a.index(max(a))
+    if bag > weights[ind]:
+        value += values[ind]
+        bag -= weights[ind]
+        res.append(ind)
+        a[ind] = 0
+    elif bag <= weights[ind]:
+        value += bag*a[ind]
+        res.append(ind)
+        bag = 0
+        a[ind] = 0
+print("取出物品总价值为{}".format(value))
+print("依次取出的物品为:")
+for res in res:
+    print("第{}件".format(res+1),end=' ')
+
+运行结果：
+请输入物品的件数4
+请输入背包的最大承重量6
+请输入第1件物品的重量1
+请输入第2件物品的重量4
+请输入第3件物品的重量3
+请输入第4件物品的重量2
+请输入第1件物品的价值5
+请输入第2件物品的价值6
+请输入第3件物品的价值7
+请输入第4件物品的价值8
+取出物品总价值为20.0
+依次取出的物品为:
+第1件 第4件 第3件 
