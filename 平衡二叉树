@@ -1,0 +1,17 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        def maxDepth(self,root: TreeNode) ->int:
+            if root == None:
+                return 0
+            left_height = self.maxDepth(root.left)
+            right_height = self.maxDepth(root.right)
+            return max(left_height,right_height) + 1
+        h1 = maxDepth(self,root.left)
+        h2 = maxDepth(self,root.right)
+        return abs(h1-h2) <= 1
