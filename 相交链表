@@ -1,0 +1,30 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+            ha = headA
+            hb = headB
+            while ha != hb:
+                if ha:
+                    ha = ha.next
+                else:
+                    ha = headB
+                if hb:
+                    hb = hb.next
+                else:
+                    hb = headA
+            return ha
+        
+这道题用的是浪漫算法，就是我先把我的路走完之后走她的路，她走完她的路再走我的路，如果两个链表相交，他们一定会在相交点遇到。
+因为:
+一种比较巧妙的方式是，分别为链表A和链表B设置指针A和指针B，然后开始遍历链表，如果遍历完当前链表，则将指针指向另外一个链表的头部继续遍历，直至两个指针相遇。
+最终两个指针分别走过的路径为：
+指针A :a+c+b
+指针B :b+c+a
+明显 a+c+b = b+c+a,因而如果两个链表相交，则指针A和指针B必定在相交结点相遇。
+
+
